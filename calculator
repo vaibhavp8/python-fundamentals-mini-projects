@@ -1,0 +1,31 @@
+while True:
+    n1 = float(input("Enter number 1: "))
+    operator = input("Enter an operator( + , - , * , / , sqrt , sq(for squares): ")
+    if operator.lower() == "sqrt":
+        result = n1 ** 0.5
+        print(round(result, 3))
+    elif operator.lower() == "sq":
+        result = n1 ** 2
+        print(round(result, 3))
+    else:
+        n2 = float(input("Enter number 2: "))
+        if operator == "+":
+            result = n1 + n2
+            print(round(result, 3))
+        elif operator == "-":
+            result = n1 -n2
+            print(round(result, 3))
+        elif operator == "*":
+            result = n1 * n2
+            print(round(result, 3))
+        elif operator == "/":
+            result = n1 / n2
+            print(round(result, 3))
+    program_end = input("Do you want to quit? (Enter 'q' for quit or Press 'Enter' to continue : ")
+    if program_end == "q":
+        print()
+        print("**********************************************")
+        print("         THANK YOU HAVE A NICE DAY")
+        print("**********************************************")
+        print()
+        break

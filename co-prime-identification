@@ -1,0 +1,25 @@
+is_running = True
+while is_running:
+    x = int(input("Enter a number: "))
+    y = int(input("Enter a second number: "))
+    list1 = []
+    list2 = []
+    for num1 in range(1, x+1):
+        if x % num1 == 0:
+            list1.append(num1)
+    for num2 in range(1, y + 1):
+        if y % num2 == 0:
+            list2.append(num2)
+    common_factors = [factor for factor in list1 if factor in list2]
+    if common_factors == [1]:
+        print(f"{x} and {y} are co-prime numbers")
+    else:
+        print(f"{x} and {y} are not co-prime numbers")
+    program_end = input("Do you want to quit? (Enter 'q' for quit or Press 'Enter' to continue : ")
+    if program_end.lower() == "q":
+        break
+print()
+print("**********************************************")
+print("         THANK YOU HAVE A NICE DAY")
+print("**********************************************")
+print()

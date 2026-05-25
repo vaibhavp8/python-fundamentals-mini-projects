@@ -1,0 +1,40 @@
+import random
+while True:
+    list1 = ["rock", "paper", "scissors"]
+    choice = input("Enter a choice(rock, paper, scissors): ")
+    c_choice = random.choice(list1)
+    if choice.lower() not in list1:
+        print("That is not a valid choice")
+        continue
+    if choice.lower() == c_choice:
+        print(f"The system chose {c_choice}")
+        print("Draw")
+    elif choice.lower() == "rock":
+        if c_choice == "paper":
+            print(f"The system chose {c_choice}")
+            print("You lose")
+        elif c_choice == "scissors":
+            print(f"The system chose {c_choice}")
+            print("You win")
+    elif choice.lower() == "paper":
+        if c_choice == "rock":
+            print(f"The system chose {c_choice}")
+            print("You win")
+        elif c_choice == "scissors":
+            print(f"The system chose {c_choice}")
+            print("You lose")
+    elif choice.lower() == "scissors":
+        if c_choice == "rock":
+            print(f"The system chose {c_choice}")
+            print("You lose")
+        elif c_choice == "paper":
+            print(f"The system chose {c_choice}")
+            print("You win")
+    program_end = input("Do you want to quit? (Enter 'q' for quit or Press 'Enter' to continue : ")
+    if program_end.lower() == "q":
+        break
+print()
+print("**********************************************")
+print("         THANK YOU HAVE A NICE DAY")
+print("**********************************************")
+print()

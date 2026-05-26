@@ -1,0 +1,21 @@
+car1 = Car("Mustang", 2024, "red", False)
+car2 = Car("Corvette", 2026, "BLack", True)
+choose = int(input("Choose the car model you want (1,2): "))
+if choose == 1:
+    print(f" Model = {car1.model}")
+    print(f" Year = {car1.year}")
+    print(f" Color = {car1.color}")
+
+    if car1.for_sale:
+        car1.buy()
+    elif not car1.for_sale:
+        car1.no_buy()
+elif choose == 2:
+    print(f" Model = {car2.model}")
+    print(f" Year = {car2.year}")
+    print(f" Color = {car2.color}")
+
+    if car2.for_sale:
+        car2.buy()
+    elif not car2.for_sale:
+        car2.no_buy()

@@ -1,0 +1,10 @@
+class Car:
+    def __init__(self, model, year, color, for_sale):
+        self.model = model
+        self.year = year
+        self.color = color
+        self.for_sale = for_sale
+    def buy(self):
+        print(f"In stock: You can buy the {self.color} {self.model}")
+    def no_buy(self):
+        print(f"Out of stock: You cannot buy the {self.color} {self.model}")

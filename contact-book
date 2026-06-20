@@ -1,0 +1,159 @@
+import json
+import re
+from pathlib import Path
+
+
+CONTACTS_FILE = Path(__file__).with_name("contacts.json")
+
+
+def load_contacts():
+    """Load contacts from the JSON file."""
+    if not CONTACTS_FILE.exists():
+        return []
+
+    try:
+        with CONTACTS_FILE.open("r", encoding="utf-8") as file:
+            data = json.load(file)
+            return data if isinstance(data, list) else []
+    except (json.JSONDecodeError, OSError):
+        print("Could not read contacts.json. Starting with an empty contact book.")
+        return []
+
+
+def save_contacts(contacts):
+    """Save contacts to the JSON file."""
+    try:
+        with CONTACTS_FILE.open("w", encoding="utf-8") as file:
+            json.dump(contacts, file, indent=4)
+    except OSError as error:
+        print(f"Could not save contacts: {error}")
+
+
+def valid_phone(phone):
+    return bool(re.fullmatch(r"[0-9+() -]{7,20}", phone))
+
+
+def valid_email(email):
+    return bool(re.fullmatch(r"[^\s@]+@[^\s@]+\.[^\s@]+", email))
+
+
+def display_contacts(contacts):
+    if not contacts:
+        print("\nNo contacts found.")
+        return
+
+    print("\n---------------- CONTACTS ----------------")
+    for number, contact in enumerate(contacts, start=1):
+        print(f"{number}. {contact['name']}")
+        print(f"   Phone: {contact['phone']}")
+        print(f"   Email: {contact['email']}")
+
+
+def get_contact_details():
+    name = input("Enter name: ").strip()
+    if not name:
+        print("Name cannot be empty.")
+        return None
+
+    phone = input("Enter phone number: ").strip()
+    if not valid_phone(phone):
+        print("Enter a valid phone number.")
+        return None
+
+    email = input("Enter email address: ").strip()
+    if not valid_email(email):
+        print("Enter a valid email address.")
+        return None
+
+    return {"name": name, "phone": phone, "email": email}
+
+
+def add_contact(contacts):
+    contact = get_contact_details()
+    if contact:
+        contacts.append(contact)
+        save_contacts(contacts)
+        print("Contact added successfully.")
+
+
+def search_contacts(contacts):
+    query = input("Enter a name to search: ").strip().lower()
+    matches = [contact for contact in contacts if query in contact["name"].lower()]
+    display_contacts(matches)
+
+
+def choose_contact(contacts, action):
+    if not contacts:
+        print("\nNo contacts found.")
+        return None
+
+    display_contacts(contacts)
+    try:
+        choice = int(input(f"Enter the contact number to {action}: "))
+        if 1 <= choice <= len(contacts):
+            return choice - 1
+    except ValueError:
+        pass
+
+    print("Invalid contact number.")
+    return None
+
+
+def update_contact(contacts):
+    index = choose_contact(contacts, "update")
+    if index is None:
+        return
+
+    print("Enter the new contact details:")
+    updated_contact = get_contact_details()
+    if updated_contact:
+        contacts[index] = updated_contact
+        save_contacts(contacts)
+        print("Contact updated successfully.")
+
+
+def delete_contact(contacts):
+    index = choose_contact(contacts, "delete")
+    if index is None:
+        return
+
+    removed_contact = contacts.pop(index)
+    save_contacts(contacts)
+    print(f"{removed_contact['name']} was deleted.")
+
+
+def main():
+    contacts = load_contacts()
+
+    while True:
+        print("\n==========================================")
+        print("              CONTACT BOOK")
+        print("==========================================")
+        print("1. Add contact")
+        print("2. View contacts")
+        print("3. Search contacts")
+        print("4. Update contact")
+        print("5. Delete contact")
+        print("6. Exit")
+
+        choice = input("Enter your choice (1-6): ").strip()
+
+        if choice == "1":
+            add_contact(contacts)
+        elif choice == "2":
+            display_contacts(contacts)
+        elif choice == "3":
+            search_contacts(contacts)
+        elif choice == "4":
+            update_contact(contacts)
+        elif choice == "5":
+            delete_contact(contacts)
+        elif choice == "6":
+            print("Thank you for using Contact Book!")
+            break
+        else:
+            print("Please enter a number from 1 to 6.")
+
+
+if __name__ == "__main__":
+    main()

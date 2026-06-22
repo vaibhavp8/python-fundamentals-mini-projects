@@ -1,0 +1,29 @@
+class calculator:
+    def __init__(self,num1,num2):
+        self.num1 = num1
+        self.num2 = num2
+    def addition(self):
+        return self.num1 + self.num2
+    def subtraction(self):
+        return self.num1 - self.num2
+    def multiplication(self):
+        return self.num1 * self.num2
+    def division(self):
+        return self.num1 / self.num2
+    def exponentiation(self):
+        return self.num1 ** self.num2
+    def modulus(self):
+        return self.num1 % self.num2
+    def square(self):
+        return self.num1 ** 2
+    def cube(self):
+        return self.num1 ** 3
+a = calculator(1,2)
+print(a.addition())
+print(a.subtraction())
+print(a.multiplication())
+print(a.division())
+print(a.exponentiation())
+print(a.modulus())
+print(a.square())
+print(a.cube())
